@@ -1,10 +1,14 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export default function GoogleAd({adClient = "ca-pub-1234567890123456",adSlot="1234567890"}) {
     const adRef = useRef(null)
+    const [showFallBack ,setShowFallBack] = useState(false)
     useEffect(()=>{
-        let isMounted = true;
-
+      const fallBackTimer = setTimeout(()=>{
+        if(adRef.current &&  adRef.current.hasAttribute('data-adsbygoogle-status')){
+            setShowFallBack(true)
+        }
+      })
         try{
             if(adRef.current && window.adsbygoogle && adRef.current.hasAttribute('data-adsbygoogle-status')){
 
@@ -15,11 +19,33 @@ export default function GoogleAd({adClient = "ca-pub-1234567890123456",adSlot="1
             
         }
         return () =>{
-            isMounted = false;
+          clearTimeout(fallBackTimer)
         }
     },[])
+    const fallBackBoxStyle ={
+        margin:'20px auto',
+        top:0,
+        left:0,
+        width:'100%',
+        height:'100%',
+        background:'#f3f4f6',
+        display:'flex',
+        flexDirection:'column',
+        alignItems:'center',
+        zIndex:1
+    }
   return (
     <div style={{ margin:'20px auto' }}>
+        {showFallBack && (
+            <div className="" style={fallBackBoxStyle}>
+                <strong style={{ color:"#10b981" }}>[GOOGLE AD PLACEHOLDER ]</strong>
+                <span>Client :{adClient}</span>
+                <span>Slot :{adSlot}</span>
+                <span className='mt-5'>
+                    (STructure and positioning Verification)
+                </span>
+            </div>
+        )}
       <ins 
       ref={adRef}
        className='adsbygoogle'       s
