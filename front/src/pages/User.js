@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as Yup from "yup";
 import AdSense from 'react-adsense';
+import GoogleAd from './GoogleAd';
 const SignupSchema = Yup.object().shape({
     // password: Yup.string()
     //     .min(2, 'Too Short!')
@@ -73,11 +74,7 @@ export default function User() {
 
                 </table>
             </div>
-            <AdSense.Google
-  client='ca-pub-7292810486004926'
-  slot='7806394673'
-/>
-
+            <GoogleAd />
             {open && (
                 <div className="fixed inset-0 z-10 w-screen overflow-y-auto backdrop:blur-sm bg-black/60">
                     <div className='flex justify-end '>
