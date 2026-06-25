@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../redux/slice/postSlice';
+import { IMAGE_URL } from '../utils/base_url';
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -22,7 +23,7 @@ export default function Home() {
             
               <div key={ele._id} className='flex flex-col gap-4 p-4 shadow-md rounded-md border border-gray-300'>
                 <div>
-                  <img src={ele.photo} className='' alt={ele.title} />
+                  <img src={IMAGE_URL+ ele.photo} className='' alt={ele.title} />
                 </div>
                 <div className='text-lg font-semibold'>{ele.title}</div>
                 <div>{ele.description}</div>

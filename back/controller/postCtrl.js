@@ -4,7 +4,7 @@ exports.create = async (req, res) => {
     try {
         const { title, description } = req.body;
         console.log(title, req.file);
-        const photo = req.file ? `http://localhost:8000/${req.file.path}` : "";
+        const photo = req.file ? `${req.file.path}` : "";
         const { role } = req.user || {};
 
         if (role == "user") {
@@ -28,7 +28,7 @@ exports.updatePost = async (req, res) => {
         let updateData = {title,description};
 
         if(req.file){
-            updateData.photo = `http://localhost:8000/${req.file.path}`           
+            updateData.photo = `${req.file.path}`           
 
         }
 
